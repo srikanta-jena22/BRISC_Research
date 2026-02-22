@@ -68,7 +68,12 @@ This indicates strong feature discrimination with slight overlap between specifi
 
 ## 📌 Key Takeaways
 - ResNet50 performs extremely well on this dataset.
-- Fine-tuning the full network improves classification power.
 - Regularization and augmentation effectively reduce overfitting.
 - Suitable as a strong baseline model for comparison.
+
+## ⚠️ Setbacks & Limitations
+- Minor confusion between Meningioma and Pituitary.
+- Slight drop in precision for No Tumor class.
+- Model size is relatively large (heavy computational cost).
+- Performance may degrade if dataset distribution shifts.
 
