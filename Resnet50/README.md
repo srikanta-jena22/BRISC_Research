@@ -110,3 +110,4 @@ This suggests visual similarity between certain tumor structures.
 - `confusion_matrix.png`
 - `metrics.csv`
 - `predictions.csv`
+- `confusion_matrix.npy`
