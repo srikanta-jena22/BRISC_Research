@@ -32,6 +32,24 @@ ResNet50 (ImageNet pretrained) was fully fine-tuned and achieved:
 
 ---
 
+## 🥇 ResNet101 — Current Best CNN
+
+ResNet101 (ImageNet pretrained, fully fine-tuned) achieved:
+
+- **97.70% Validation Accuracy**
+- 97.69% Macro F1-score
+
+### Improvements Over ResNet50:
+- Slightly better overall accuracy.
+- Improved class separation.
+- Reduced inter-class confusion.
+
+Although performance gains are modest, deeper feature extraction provided measurable improvements.
+
+📁 Full experiment details available in `/ResNet101`
+
+---
+
 # 📈 Evaluation Metrics
 
 All models are evaluated using:
