@@ -7,12 +7,12 @@ This repository documents structured experimentation for multi-class brain tumor
 Each deep learning architecture is implemented, trained, evaluated, and analyzed independently to understand:
 
 - Model depth vs performance
-- Architectural design impact (VGG vs ResNet)
+- Architectural design impact (VGG vs ResNet vs DenseNet)
 - Inter-class confusion patterns
 - Generalization capability
 - Computational trade-offs
 
-The objective is not only to achieve high accuracy, but to analyze model behavior systematically.
+The objective is not only to achieve high accuracy, but to systematically analyze architectural behavior and performance trends.
 
 ---
 
@@ -26,9 +26,9 @@ The objective is not only to achieve high accuracy, but to analyze model behavio
 ### Key Highlights:
 - Best overall performance.
 - Strong class separation.
-- Reduced confusion between tumor types.
-- Stable training with minimal overfitting.
-- Improved performance over ResNet50.
+- Reduced inter-class confusion.
+- Stable convergence with minimal overfitting.
+- Incremental improvement over ResNet50.
 
 📁 Full experiment details: `/ResNet101`
 
@@ -43,7 +43,7 @@ The objective is not only to achieve high accuracy, but to analyze model behavio
 - Excellent generalization.
 - Near-perfect Glioma classification.
 - Minor confusion between Meningioma and No Tumor.
-- Efficient and stable convergence.
+- Efficient and stable training.
 
 📁 Full experiment details: `/ResNet50`
 
@@ -58,26 +58,53 @@ The objective is not only to achieve high accuracy, but to analyze model behavio
 - Competitive performance.
 - Slightly higher inter-class confusion.
 - Slower convergence compared to residual networks.
-- Demonstrates effectiveness of classical CNN architectures.
+- Demonstrates effectiveness of traditional CNN architectures.
 
 📁 Full experiment details: `/VGG16`
 
 ---
 
+## DenseNet121 — Dense Connectivity Experiment
+
+- **Validation Accuracy:** 95.79%
+- **Macro F1-score:** 95.51%
+
+### Additional Changes Explored:
+- Partial freezing (~70% layers frozen)
+- Two fully connected layers (256 → 128)
+- Stronger L2 regularization
+- Modified dropout rates
+- Tuned learning rate (3e-4)
+- Adjusted augmentation strategy
+
+### Key Observations:
+- Required additional tuning compared to other models.
+- Higher confusion in Meningioma class.
+- Dense connectivity did not outperform residual architectures.
+- Slightly less stable training behavior.
+
+📁 Full experiment details: `/DenseNet121`
+
+---
+
 # 📊 Model Comparison Summary
 
-| Model       | Validation Accuracy | Macro F1 | Rank |
-|------------|--------------------|----------|------|
-| ResNet101  | 🥇 97.70%          | 97.69%   | 1 |
-| ResNet50   | 97.39%             | 97.34%   | 2 |
-| VGG16      | 96.99%             | 97.07%   | 3 |
+| Model        | Validation Accuracy | Macro F1 | Rank |
+|-------------|--------------------|----------|------|
+| ResNet101   | 🥇 97.70%          | 97.69%   | 1 |
+| ResNet50    | 97.39%             | 97.34%   | 2 |
+| VGG16       | 96.99%             | 97.07%   | 3 |
+| DenseNet121 | 95.79%             | 95.51%   | 4 |
 
-### Observations:
+---
 
-- Increasing depth (ResNet50 → ResNet101) provides measurable improvement.
-- Residual connections improve optimization stability.
-- VGG16 performs competitively but lacks skip connections.
-- Most confusion occurs between Meningioma and other tumor types.
+# 🔍 Comparative Insights
+
+- Increasing depth (ResNet50 → ResNet101) provides measurable performance gain.
+- Residual connections outperform dense connectivity on this dataset.
+- VGG16 remains competitive but lacks optimization advantages of skip connections.
+- DenseNet required additional architectural tuning but did not exceed ResNet performance.
+- Meningioma consistently shows the highest confusion across all models.
 
 ---
 
@@ -90,30 +117,23 @@ All models are evaluated using:
 - Recall (Macro Average)
 - F1-score (Macro Average)
 - Confusion Matrix Analysis
-- Per-class performance metrics
+- Per-class performance breakdown
 
 ---
 
 # ⚠️ General Challenges Observed
 
-- Visual similarity between certain tumor classes.
-- Sensitivity to augmentation strategy.
-- Trade-off between depth and computational cost.
-- Diminishing returns with increased model complexity.
-- Risk of overfitting without regularization.
+- Visual similarity between tumor classes.
+- Sensitivity to augmentation parameters.
+- Trade-off between model depth and computational cost.
+- Diminishing returns with increasing architectural complexity.
+- Risk of overfitting without proper regularization.
 
 ---
 
 # 🔜 Future Work
 
-- Implement transformer-based architectures (TinyViT, MaxViT).
+- Implement transformer-based architectures.
 - Compare CNN vs Transformer performance.
-- Perform hyperparameter optimization.
-- Conduct deeper error analysis on misclassified samples.
-- Explore deployment considerations for medical settings.
-
----
-
-# 🏁 Objective
-
-To build a reproducible, research-oriented deep learning benchmarking framework for medical image classification, analyzing architectural trade-offs while maintaining high performance and interpretability.
+- Conduct deeper misclassification analysis.
+- Explore lightweight deployment-ready models.
