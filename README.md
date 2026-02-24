@@ -64,7 +64,7 @@ The objective is not only to achieve high accuracy, but to systematically analyz
 
 ---
 
-## DenseNet121 — Dense Connectivity Experiment
+## 4️⃣ DenseNet121 — Dense Connectivity Experiment
 
 - **Validation Accuracy:** 95.79%
 - **Macro F1-score:** 95.51%
@@ -87,24 +87,42 @@ The objective is not only to achieve high accuracy, but to systematically analyz
 
 ---
 
+## 5️⃣ DenseNet169 — Deeper Dense Architecture
+
+- **Validation Accuracy:** 94.29%
+- **Macro F1-score:** 94%
+
+### Key Observations:
+- Increasing DenseNet depth (121 → 169) reduced performance.
+- Training accuracy reached ~99% but validation plateaued at ~94%.
+- Clear signs of moderate overfitting.
+- Meningioma recall dropped compared to other architectures.
+- Deeper dense connectivity did not yield performance gains.
+
+📁 Full experiment details: `/DenseNet169`
+
+---
+
 # 📊 Model Comparison Summary
 
-| Model        | Validation Accuracy | Macro F1 | Rank |
-|-------------|--------------------|----------|------|
-| ResNet101   | 🥇 97.70%          | 97.69%   | 1 |
-| ResNet50    | 97.39%             | 97.34%   | 2 |
-| VGG16       | 96.99%             | 97.07%   | 3 |
-| DenseNet121 | 95.79%             | 95.51%   | 4 |
+| Rank | Model        | Validation Accuracy | Macro F1 |
+|------|-------------|--------------------|----------|
+| 🥇 1 | ResNet101   | 97.70% | 97.69% |
+| 🥈 2 | ResNet50    | 97.39% | 97.34% |
+| 🥉 3 | VGG16       | 96.99% | 97.07% |
+| 4    | DenseNet121 | 95.79% | 95.51% |
+| 5    | DenseNet169 | 94.29% | 94% |
 
 ---
 
 # 🔍 Comparative Insights
 
-- Increasing depth (ResNet50 → ResNet101) provides measurable performance gain.
+- Increasing depth improves ResNet performance (50 → 101).
+- Increasing depth in DenseNet (121 → 169) degraded performance.
 - Residual connections outperform dense connectivity on this dataset.
-- VGG16 remains competitive but lacks optimization advantages of skip connections.
-- DenseNet required additional architectural tuning but did not exceed ResNet performance.
-- Meningioma consistently shows the highest confusion across all models.
+- VGG16 remains competitive despite lacking skip connections.
+- Dense architectures required heavier regularization.
+- Meningioma consistently shows the highest misclassification rate across models.
 
 ---
 
@@ -127,7 +145,18 @@ All models are evaluated using:
 - Sensitivity to augmentation parameters.
 - Trade-off between model depth and computational cost.
 - Diminishing returns with increasing architectural complexity.
-- Risk of overfitting without proper regularization.
+- Risk of overfitting in deeper models without careful regularization.
+
+---
+
+# 🔬 Key Architectural Insight
+
+This benchmarking study reveals that:
+
+- Residual learning scales better with depth.
+- Dense connectivity does not necessarily benefit from deeper stacking.
+- Optimal depth is architecture-dependent.
+- Model complexity does not guarantee improved generalization.
 
 ---
 
@@ -137,3 +166,5 @@ All models are evaluated using:
 - Compare CNN vs Transformer performance.
 - Conduct deeper misclassification analysis.
 - Explore lightweight deployment-ready models.
+- Investigate ensemble strategies.
+
