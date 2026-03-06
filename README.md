@@ -66,22 +66,16 @@ The objective is not only to achieve high accuracy, but to systematically analyz
 
 ## 4️⃣ DenseNet121 — Dense Connectivity Experiment
 
-- **Validation Accuracy:** 95.79%
-- **Macro F1-score:** 95.51%
-
-### Additional Changes Explored:
-- Partial freezing (~70% layers frozen)
-- Two fully connected layers (256 → 128)
-- Stronger L2 regularization
-- Modified dropout rates
-- Tuned learning rate (3e-4)
-- Adjusted augmentation strategy
+- **Validation Accuracy:** 95.59%
+- **Macro F1-score:** 95.70%
 
 ### Key Observations:
-- Required additional tuning compared to other models.
-- Higher confusion in Meningioma class.
-- Dense connectivity did not outperform residual architectures.
-- Slightly less stable training behavior.
+
+- Dense connectivity allowed efficient feature reuse.
+- Performance remained competitive but lower than ResNet architectures.
+- Training accuracy reached ~99% while validation stabilized near ~96%.
+- Meningioma remained the most difficult class to classify.
+- DenseNet required stronger regularization to control overfitting.
 
 📁 Full experiment details: `/DenseNet121`
 
@@ -110,7 +104,7 @@ The objective is not only to achieve high accuracy, but to systematically analyz
 | 🥇 1 | ResNet101   | 97.70% | 97.69% |
 | 🥈 2 | ResNet50    | 97.39% | 97.34% |
 | 🥉 3 | VGG16       | 96.99% | 97.07% |
-| 4    | DenseNet121 | 95.79% | 95.51% |
+| 4    | DenseNet121 | 95.59% | 95.70% |
 | 5    | DenseNet169 | 94.29% | 94% |
 
 ---
