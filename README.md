@@ -64,7 +64,24 @@ The objective is not only to achieve high accuracy, but to systematically analyz
 
 ---
 
-## 4️⃣ DenseNet121 — Dense Connectivity Experiment
+## 4️⃣ DenseNet169 — Deeper Dense Architecture
+
+- **Validation Accuracy:** 96.69%
+- **Macro F1-score:** 96.72%
+
+### Key Observations:
+
+- Increasing DenseNet depth improved performance compared to DenseNet121.
+- Lower learning rate stabilized training for the deeper architecture.
+- Training accuracy reached ~99% while validation stabilized around ~96–97%.
+- Meningioma remained the most difficult class to classify.
+- Dense connectivity improves feature reuse but increases computational cost.
+
+📁 Full experiment details: `/DenseNet169`
+
+---
+
+## 5️⃣ DenseNet121 — Dense Connectivity Experiment
 
 - **Validation Accuracy:** 95.59%
 - **Macro F1-score:** 95.70%
@@ -72,7 +89,7 @@ The objective is not only to achieve high accuracy, but to systematically analyz
 ### Key Observations:
 
 - Dense connectivity allowed efficient feature reuse.
-- Performance remained competitive but lower than ResNet architectures.
+- Performance remained competitive but lower than deeper architectures.
 - Training accuracy reached ~99% while validation stabilized near ~96%.
 - Meningioma remained the most difficult class to classify.
 - DenseNet required stronger regularization to control overfitting.
@@ -81,41 +98,25 @@ The objective is not only to achieve high accuracy, but to systematically analyz
 
 ---
 
-## 5️⃣ DenseNet169 — Deeper Dense Architecture
-
-- **Validation Accuracy:** 94.29%
-- **Macro F1-score:** 94%
-
-### Key Observations:
-- Increasing DenseNet depth (121 → 169) reduced performance.
-- Training accuracy reached ~99% but validation plateaued at ~94%.
-- Clear signs of moderate overfitting.
-- Meningioma recall dropped compared to other architectures.
-- Deeper dense connectivity did not yield performance gains.
-
-📁 Full experiment details: `/DenseNet169`
-
----
-
 # 📊 Model Comparison Summary
 
-| Rank | Model        | Validation Accuracy | Macro F1 |
-|------|-------------|--------------------|----------|
-| 🥇 1 | ResNet101   | 97.70% | 97.69% |
-| 🥈 2 | ResNet50    | 97.39% | 97.34% |
-| 🥉 3 | VGG16       | 96.99% | 97.07% |
-| 4    | DenseNet121 | 95.59% | 95.70% |
-| 5    | DenseNet169 | 94.29% | 94% |
+| Rank | Model | Validation Accuracy | Macro F1 |
+|------|------|--------------------|----------|
+| 🥇 1 | ResNet101 | 97.70% | 97.69% |
+| 🥈 2 | ResNet50 | 97.39% | 97.34% |
+| 🥉 3 | VGG16 | 96.99% | 97.07% |
+| 4 | DenseNet169 | 96.69% | 96.72% |
+| 5 | DenseNet121 | 95.59% | 95.70% |
 
 ---
 
 # 🔍 Comparative Insights
 
 - Increasing depth improves ResNet performance (50 → 101).
-- Increasing depth in DenseNet (121 → 169) degraded performance.
-- Residual connections outperform dense connectivity on this dataset.
+- Increasing depth in DenseNet (121 → 169) improved performance.
+- Residual connections still outperform dense connectivity on this dataset.
 - VGG16 remains competitive despite lacking skip connections.
-- Dense architectures required heavier regularization.
+- Dense architectures require stronger regularization and careful learning rate tuning.
 - Meningioma consistently shows the highest misclassification rate across models.
 
 ---
@@ -148,7 +149,7 @@ All models are evaluated using:
 This benchmarking study reveals that:
 
 - Residual learning scales better with depth.
-- Dense connectivity does not necessarily benefit from deeper stacking.
+- Dense connectivity provides strong feature reuse but increases computational cost.
 - Optimal depth is architecture-dependent.
 - Model complexity does not guarantee improved generalization.
 
@@ -161,4 +162,3 @@ This benchmarking study reveals that:
 - Conduct deeper misclassification analysis.
 - Explore lightweight deployment-ready models.
 - Investigate ensemble strategies.
-
