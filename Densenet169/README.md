@@ -2,58 +2,104 @@
 
 ## 📌 Overview
 
-This experiment evaluates DenseNet169 (ImageNet pretrained) for multi-class brain tumor classification.
+This experiment implements **DenseNet169 (ImageNet pretrained)** for multi-class brain tumor classification on the BRISC 2025 dataset. DenseNet architectures utilize dense connectivity, where each layer receives feature maps from all preceding layers, allowing efficient feature reuse and improved gradient propagation.
 
-The goal was to examine whether increasing DenseNet depth (121 → 169 layers) improves representation power and classification accuracy.
+The goal of this experiment was to evaluate whether increasing DenseNet depth improves classification performance on brain MRI tumor detection.
 
 ---
 
-## ⚙️ Architecture & Modifications
+## 🗂 Dataset
 
-- DenseNet169 backbone (ImageNet pretrained)
-- Partial fine-tuning (~75% layers frozen)
+- 4 Classes:
+  - Glioma
+  - Meningioma
+  - No Tumor
+  - Pituitary
+- Image Resolution: **224 × 224**
+- Validation Split: **20%**
+- Validation Samples: **998**
+
+---
+
+## ⚙️ Model Architecture
+
+- DenseNet169 backbone (**ImageNet pretrained**)
+- Partial fine-tuning enabled (**~50% layers trainable**)
 - Global Average Pooling
 - Batch Normalization
-- Dense(256) + Dropout(0.45)
-- Dense(128) + Dropout(0.35)
-- L2 Regularization (8e-4)
-- Adam optimizer (learning rate = 3e-4)
+- Dense (256, ReLU)
+- Dropout (0.5)
+- L2 Regularization (5e-4)
+- Softmax output (4 classes)
 
 ---
 
-## 📊 Final Performance
+## 🔧 Training Configuration
 
-- **Validation Accuracy:** 94.29%
-- **Macro Precision:** 94%
-- **Macro Recall:** 94%
-- **Macro F1-score:** 94%
-
----
-
-## 📈 Training Behavior
-
-- Training accuracy reached ~99%.
-- Validation accuracy plateaued at ~94%.
-- Moderate overfitting observed.
-- Increasing depth did not improve performance compared to DenseNet121.
-
----
-
-## 🧩 Confusion Matrix Insights
-- Meningioma misclassified as No Tumor.
-- Slight drop in recall for Meningioma (0.89).
-- No Tumor achieved very strong recall (0.99).
+- Optimizer: **Adam (7e-5)**
+- Loss: **Sparse Categorical Crossentropy**
+- Epochs: **100**
+- EarlyStopping (patience=10)
+- ReduceLROnPlateau
+- Data Augmentation:
+  - Rotation
+  - Width shift
+  - Height shift
+  - Shear
+  - Zoom
+  - Brightness adjustment
+  - Horizontal flip
 
 ---
 
-## ⚠️ Observations & Setbacks
+# 📊 Final Performance
 
-- Increasing DenseNet depth (121 → 169) did not improve accuracy.
-- DenseNet121 (95.79%) outperformed DenseNet169 (94.29%).
-- Deeper architecture increased overfitting risk.
-- Residual networks remain more stable for this dataset.
+### 🔹 Validation Accuracy
+**96.69%**
 
+### 🔹 Detailed Metrics
 
-## 📌 Conclusion
+| Class | Precision | Recall | F1-score |
+|------|-----------|--------|----------|
+| Glioma | 0.99 | 0.95 | 0.97 |
+| Meningioma | 0.95 | 0.94 | 0.94 |
+| No Tumor | 0.96 | 1.00 | 0.98 |
+| Pituitary | 0.97 | 0.98 | 0.98 |
 
-While DenseNet169 increases model depth and representational capacity, it does not outperform DenseNet121 or ResNet architectures on this dataset. This suggests diminishing returns with deeper dense connectivity for this classification task.
+### Overall Metrics
+
+- Accuracy: **96.69%**
+- Precision (Macro): **96.72%**
+- Recall (Macro): **96.75%**
+- F1-score (Macro): **96.72%**
+
+---
+
+# 📈 Training Behavior
+
+- Model converged steadily within the first **20 epochs**.
+- Training accuracy approached **~99%**.
+- Validation accuracy stabilized around **96–97%**.
+- Lower learning rate helped stabilize training for the deeper architecture.
+
+DenseNet169 showed **better generalization compared to DenseNet121**.
+
+---
+
+# ⚠️ Setbacks & Limitations
+
+- Deeper DenseNet architecture increases computational cost.
+- Training time was longer compared to DenseNet121.
+- Dense connectivity increases GPU memory usage.
+- Performance still slightly lower than top-performing ResNet models.
+
+---
+
+# 📁 Files Included
+
+- `densenet169-96-69.ipynb`
+- `training_curves.png`
+- `confusion_matrix.png`
+- `metrics.csv`
+- `predictions.csv`
+- `confusion_matrix.npy`
